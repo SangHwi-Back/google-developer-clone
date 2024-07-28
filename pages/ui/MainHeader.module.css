@@ -1,0 +1,34 @@
+.mainHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f9fa;
+    font-family: 'Arial', sans-serif;
+}
+
+.mainHeaderLeft {
+    flex: 1;
+    text-align: left;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.mainHeaderLeft:hover {
+    background-color: #e9ecef;
+}
+
+.mainHeaderMiddle {
+    flex-grow: 1;
+}
+
+.mainHeaderRight {
+    flex: 1;
+    text-align: right;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.mainHeaderRight:hover {
+    background-color: #e9ecef;
+}
