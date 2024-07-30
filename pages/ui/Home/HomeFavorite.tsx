@@ -89,9 +89,9 @@ function HeaderButton({buttonName, isSelected, bubbleSelectEvent}: HeaderButtonP
 
 function FavoriteCard({buttonName, type, description, keywords}: FavoriteCardProps) {
     return <div key={buttonName} className={'border-radius: 5px;'}>
-        <span className={'font-weight: bold;'}>${type}</span>
+        <span className={'font-weight: bold;'}>{type}</span>
         <Link href={`/favorite/${buttonName}`}></Link>
-        <span>${description}</span>
+        <span>{description}</span>
         <span className={'display: flex;'}>
             {keywords.map((keyword) => {
                 return <p key={keyword} className={'background-color: gray; border-radius: 2px; font-weight: bold;'}>keyword</p>
