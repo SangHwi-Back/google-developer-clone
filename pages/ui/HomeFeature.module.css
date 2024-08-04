@@ -1,0 +1,28 @@
+.flexContainerColumn {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.flexContainerRow {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.stretchItem {
+    flex-grow: 1;
+}
+
+.headerButton {
+    border-radius: 3px;
+    border-color: gray;
+    padding: 2px;
+}
+
+.favoriteCard {
+    margin: 0 20px 10px 10px;
+    border-radius: 5px;
+    background-color: #bfbfbf;
+    padding: 15px;
+}

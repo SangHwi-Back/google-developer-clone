@@ -1,4 +1,5 @@
 import {useState} from "react";
+import styles from '@/pages/ui/HomeFeature.module.css';
 import Link from "next/link";
 
 enum CardTypes {
@@ -56,15 +57,14 @@ export default function HomeFavorite() {
     }
 
     return <>
-        <div className={'display: flex; flex-direction: row;'}>
-            <p>필터링할 관심분야 선택</p>
-            <div className={'flex-grow:1;'}/>
-            <div>
+        <div className={`${styles.flexContainerRow}`}>
+            <div className={`${styles.stretchItem}`}><p>필터링할 관심분야 선택</p></div>
+            <div className={styles.flexContainer}>
                 <p>(사람아이콘)</p>
                 <p>계정 만들기</p>
             </div>
         </div>
-        <div className={'display: flex; margin-bottom: 20px;'}>
+        <div className={`${styles.flexContainerRow}`}>
             {headerButtons.map((buttonName) => {
                 let prop: HeaderButtonProps = {
                     buttonName: buttonName, isSelected: selectedButtons.includes(buttonName),
@@ -73,7 +73,7 @@ export default function HomeFavorite() {
                 return HeaderButton(prop);
             })}
         </div>
-        <div className={'display: flex;'}>
+        <div className={styles.flexContainerRow}>
             {favoriteProps.map((prop) => FavoriteCard(prop))}
         </div>
     </>
@@ -81,21 +81,15 @@ export default function HomeFavorite() {
 
 function HeaderButton({buttonName, isSelected, bubbleSelectEvent}: HeaderButtonProps) {
     return <button key={buttonName} onClick={() => bubbleSelectEvent(buttonName)}>
-        <div className={`border-radius: 3px; border-color: gray; background-color: ${isSelected ? 'darkgray' : 'lightgray'}`}>
+        <div className={`${styles.headerButton} background-color: ${isSelected ? 'darkgray' : 'lightgray'}`}>
             {buttonName}
         </div>
     </button>
 }
 
-function FavoriteCard({buttonName, type, description, keywords}: FavoriteCardProps) {
-    return <div key={buttonName} className={'border-radius: 5px;'}>
-        <span className={'font-weight: bold;'}>{type}</span>
-        <Link href={`/favorite/${buttonName}`}></Link>
-        <span>{description}</span>
-        <span className={'display: flex;'}>
-            {keywords.map((keyword) => {
-                return <p key={keyword} className={'background-color: gray; border-radius: 2px; font-weight: bold;'}>keyword</p>
-            })}
-        </span>
+function FavoriteCard({buttonName, description}: FavoriteCardProps) {
+    return <div key={buttonName} className={`${styles.favoriteCard}`}>
+        <Link href={`/favorite/${buttonName}`}>{buttonName}</Link>
+        <div>{description}</div>
     </div>
 }
