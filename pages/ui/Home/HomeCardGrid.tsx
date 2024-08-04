@@ -1,5 +1,6 @@
 import styles from '@/pages/ui/Home/HomeCardGrid.module.css';
 import Image from "next/image";
+import {useEffect, useRef} from "react";
 
 type CardModel = {
   imageName: string,
@@ -73,8 +74,25 @@ function HomeCard({card}: { card: CardModel }) {
   return <div className={styles.cardBackground}>
     <div className={styles.cardContent}>
       <Image width={64} height={64} className={styles.cardThumbnail} src={`/${card.imageName}`} alt={card.imageName}/>
-      <p className={styles.cardTitle}>{card.name}</p>
-      <p className={styles.cardParagraph}>{card.description}</p>
+      <SingleLineText text={card.name} />
+      <p className={`${styles.cardParagraph} ${styles.singleLine}`}>{card.description}</p>
     </div>
   </div>
+}
+
+function SingleLineText({ text }: { text: string }) {
+  const pRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    const pElement = pRef.current;
+    if (pElement) {
+      let fontSize = parseFloat(window.getComputedStyle(pElement).fontSize);
+      while (pElement.scrollWidth > pElement.clientWidth && fontSize > 0) {
+        fontSize -= 0.5; // Reduce font size in smaller increments
+        pElement.style.fontSize = `${fontSize}px`;
+      }
+    }
+  }, [text]);
+
+  return <p ref={pRef} className={`font-weight: bold; ${styles.singleLine}`}>{text}</p>;
 }
