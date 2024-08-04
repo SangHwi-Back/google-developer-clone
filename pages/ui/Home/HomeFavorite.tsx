@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import styles from '@/pages/ui/HomeFeature.module.css';
 import Link from "next/link";
 
@@ -56,27 +56,40 @@ export default function HomeFavorite() {
         });
     }
 
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+
+        return () => clearTimeout(timer);
+    }, []);
+
     return <>
-        <div className={`${styles.flexContainerRow}`}>
-            <div className={`${styles.stretchItem}`}><p>필터링할 관심분야 선택</p></div>
-            <div className={styles.flexContainer}>
-                <p>(사람아이콘)</p>
-                <p>계정 만들기</p>
-            </div>
+    <div className={`${styles.flexContainerRow}`}>
+        <div className={`${styles.stretchItem}`}><p>필터링할 관심분야 선택</p></div>
+        <div className={styles.flexContainer}>
+            <p>(사람아이콘)</p>
+            <p>계정 만들기</p>
         </div>
-        <div className={`${styles.flexContainerRow}`}>
-            {headerButtons.map((buttonName) => {
-                let prop: HeaderButtonProps = {
-                    buttonName: buttonName, isSelected: selectedButtons.includes(buttonName),
-                    bubbleSelectEvent: bubbleSelectEvent
-                };
-                return HeaderButton(prop);
-            })}
-        </div>
-        <div className={styles.flexContainerRow}>
-            {favoriteProps.map((prop) => FavoriteCard(prop))}
-        </div>
-    </>
+    </div>
+    <div className={`${styles.flexContainerRow}`}>
+        {headerButtons.map((buttonName) => {
+            let prop: HeaderButtonProps = {
+                buttonName: buttonName, isSelected: selectedButtons.includes(buttonName),
+                bubbleSelectEvent: bubbleSelectEvent
+            };
+            return HeaderButton(prop);
+        })}
+    </div>
+    <div className={styles.flexContainerRow}>
+        {isLoading
+          ? FavoriteSkeleton()
+          : favoriteProps.map((prop) => FavoriteCard(prop))
+        }
+    </div>
+</>
 }
 
 function HeaderButton({buttonName, isSelected, bubbleSelectEvent}: HeaderButtonProps) {
@@ -92,4 +105,17 @@ function FavoriteCard({buttonName, description}: FavoriteCardProps) {
         <Link href={`/favorite/${buttonName}`}>{buttonName}</Link>
         <div>{description}</div>
     </div>
+}
+
+function FavoriteSkeleton() {
+    const arr = [0,1,2,3];
+
+    return (
+      arr.map((index) => {
+          return <div key={index} className={styles.favoriteCard}>
+              <div className={styles.skeleton} style={{height: '20px', width: '60%'}}></div>
+              <div className={styles.skeleton} style={{height: '15px', width: '80%'}}></div>
+          </div>
+      })
+    )
 }
