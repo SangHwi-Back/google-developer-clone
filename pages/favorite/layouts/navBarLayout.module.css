@@ -1,0 +1,14 @@
+.navBar {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 100vh;
+    width: 220px;
+}
+
+.navContents {
+    margin: 10px;
+    border-width: 1px;
+    border-color: #bfbfbf;
+    border-radius: 2px;
+}
