@@ -25,22 +25,47 @@ export default function IntroduceFavorite(_: string) {
             title: 'IT 관리',
             description: 'Google Cloud 환경에서 관리자, 결제 계정, 기타 설정을 지정합니다.',
             isForded: false,
-            numberedNames: [{name: 'a', path: 'a'}],
-            resources: [{name: 'aa', path: 'aa'}]
+            numberedNames: [
+                {name: '조직, 관리자, 결제 설정', path: 'a'},
+                {name: '초기 아키텍처 만들기', path: 'a'},
+                {name: '구성 배포 또는 다운로드', path: 'a'}
+            ],
+            resources: [
+                {name: 'Cloud Quotas 개요', path: 'a'},
+                {name: 'Google Cloud 배포 원형(아키텍처 센터)', path: 'a'}
+            ]
         }, {
             id: '2',
             title: 'DevOps 엔지니어링',
             description: 'Google Cloud 도구와 권장사항을 사용하여 인프라를 자동화하고 팀원들과 안전한 공동작업을 시작합니다.',
             isForded: false,
-            numberedNames: [{name: 'a', path: 'a'}],
-            resources: [{name: 'aa', path: 'aa'}]
+            numberedNames: [
+                {name: 'API 액세스 설정', path: 'a'},
+                {name: 'gcloud CLI 설치', path: 'a'},
+                {name: 'IAM 을 사용하여 팀원 지원', path: 'a'},
+                {name: 'Cloud 클라이언트 라이브러리 선택 및 설치', path: 'a'},
+                {name: '인증 및 승인 알아보기', path: 'a'}
+            ],
+            resources: [
+                {name: 'Google Cloud 의 관측 가능성', path: 'a'},
+                {name: 'Terraform 및 Infrastructure Manager', path: 'a'},
+                {name: '컨테이너화된 앱을 위한 CI/CD 파이프라인(아키텍처 센터)', path: 'a'}
+            ]
         }, {
             id: '3',
             title: '애플리케이션 개발',
             description: '기본 API 액세스를 가져오고 Google Cloud 서비스와 상호작용할 수 있는 개발 환경을 설정합니다.',
             isForded: false,
-            numberedNames: [{name: 'a', path: 'a'}],
-            resources: [{name: 'aa', path: 'aa'}]
+            numberedNames: [
+                {name: 'API 액세스 설정', path: 'a'},
+                {name: 'gcloud CLI 설치', path: 'a'},
+                {name: 'Cloud 클라이언트 라이브러리 선택 및 설치', path: 'a'},
+                {name: 'IDE 확장 프로그램 설정', path: 'a'},
+                {name: '인증 및 승인 알아보기', path: 'a'}
+            ],
+            resources: [
+                {name: '생성형 AI 애플리케이션 빌드', path: 'a'}
+            ]
         }
     ];
     let cardData: FavoriteCardData[] = [
@@ -82,9 +107,11 @@ export default function IntroduceFavorite(_: string) {
 
     return <Layout menus={menus}>
         <div>
-            {FavoriteIntroduce()}
-            {FavoriteFordableSections(sections)}
-            {cardData.map((card) => FavoriteCardSection(card))}
+            <FavoriteIntroduce/>
+            <FavoriteFordableSections states={sections}/>
+            {cardData.map((card, index) => (
+                <FavoriteCardSection key={index} data={card}/>
+            ))}
         </div>
     </Layout>
 }
